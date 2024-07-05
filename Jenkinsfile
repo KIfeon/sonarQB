@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     // Checkout the latest code from the repository
-                    git url: 'https://github.com/Madi-art/sonarqube.git', branch: 'main'
+                    git url: 'https://github.com/KIfeon/sonarQB.git', branch: 'main'
                 }
             }
         }
