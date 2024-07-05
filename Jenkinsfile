@@ -1,14 +1,31 @@
 pipeline {
     agent any
-    options {
-        // Timeout counter starts AFTER agent is allocated
-        timeout(time: 1, unit: 'SECONDS')
+    triggers {
+        githubPush()
     }
     stages {
-        stage('Example') {
+        stage('Checkout') {
             steps {
-                echo 'Bonjour de github 2'
+                script {
+                    // Checkout the latest code from the repository
+                    git url: 'https://github.com/Madi-art/sonarqube.git', branch: 'main'
+                }
+            }
+        }
+        stage('Identify Changed Files') {
+            steps {
+                script {
+                    // Get the list of changed files in the last commit
+                    def changedFiles = sh(script: 'git diff-tree --no-commit-id --name-only -r HEAD', returnStdout: true).trim()
+                    echo "Changed files: ${changedFiles}"
+                }
             }
         }
     }
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+    }
 }
+
