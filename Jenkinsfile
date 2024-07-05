@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Example') {
             steps {
-                echo 'Bonjour de github'
+                echo 'Bonjour de github 2'
             }
         }
     }
